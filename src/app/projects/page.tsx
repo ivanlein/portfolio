@@ -1,23 +1,19 @@
-import Link from "next/link";
-import About from "@/components/About";
-import Hero from "@/components/Hero";
 import Header from "@/components/Header";
 import { Repo } from "@/types/repo";
+import Link from "next/link";
 
 async function getData(): Promise<Repo[]> {
   const res = await fetch("http://localhost:3000/api/repos");
   return res.json();
 }
 
-export default async function Home() {
+export default async function ProjectsPage() {
   const repos = await getData();
 
   return (
     <>
       <Header />
-      <Hero />
       <div className="container">
-        <About />
         <h1 className="main-text">My projects</h1>
         <ul>
           {repos.map((repo) => (
@@ -29,6 +25,14 @@ export default async function Home() {
             </li>
           ))}
         </ul>
+        <section className="container center-container">
+          <Link
+            href="https://github.com/ivanlein?tab=repositories"
+            className="cta-button"
+          >
+            View more
+          </Link>
+        </section>
       </div>
     </>
   );
